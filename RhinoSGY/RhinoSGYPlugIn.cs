@@ -1,5 +1,6 @@
 ﻿using System;
 using Rhino;
+using Unplugged.Segy;
 
 namespace RhinoSGY
 {
@@ -47,7 +48,27 @@ namespace RhinoSGY
         protected override bool ReadFile(string filename, int index, RhinoDoc doc, Rhino.FileIO.FileReadOptions options)
         {
             bool read_success = false;
-            // TODO: Add code for reading file
+
+            var reader = new SegyReader();
+            ISegyFile file = reader.Read(filename);
+
+            RhinoApp.WriteLine("SEGY: Header Text: {0}",file.Header.Text);
+            RhinoApp.WriteLine("SEGY: Nº of Traces: {0}", file.Traces.Count);
+            for(int i = 0; i < file.Traces.Count; i++)
+            {
+                var trace = file.Traces[0];
+                RhinoApp.WriteLine("SEGY: Trace #" + trace.Header.TraceNumber + " Count #: " + i + " Sample Count: {0}", trace.Header.SampleCount);
+                RhinoApp.WriteLine("SEGY: Trace #" + trace.Header.TraceNumber + " Count #: " + i + " Crossline Nº: {0}", trace.Header.CrosslineNumber);
+                RhinoApp.WriteLine("SEGY: Trace #" + trace.Header.TraceNumber + " Count #: " + i + " Inline Nº: {0}", trace.Header.InlineNumber);
+
+                for (int j = 0; j < trace.Values.Count; j++)
+                {
+                    RhinoApp.WriteLine("SEGY: Trace #" + trace.Header.TraceNumber + " Count #: " + i + " Value Nº " + j + ": {0}", trace.Values[j]);
+                }
+            }
+
+            read_success = true;
+
             return read_success;
         }
 

@@ -53,12 +53,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RhinoSGYCommand.cs" />
     <Compile Include="RhinoSGYPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\plugin-import.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Unplugged.Segy">
+      <Version>0.6.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
